@@ -14,7 +14,6 @@ func main() {
 
 	http.HandleFunc("/goodbye", func(writer http.ResponseWriter, request *http.Request) {
 		log.Println("Goodbye")
-		//writer.Write([]byte("Hi"))
 		d, err := ioutil.ReadAll(request.Body)
 		if err != nil {
 			log.Fatal(err)
@@ -23,7 +22,6 @@ func main() {
 		}
 		log.Printf("Data %s",d)
 		fmt.Fprintf(writer,"Hello  User : %s",d)
-
 	})
 
 	http.ListenAndServe(":9090", nil)
