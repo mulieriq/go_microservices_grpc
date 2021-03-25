@@ -30,7 +30,7 @@ func main() {
 		}
 	}()
 
-	tc :=context.WithDeadline(context.Background(),30*time.Second)
+	tc,_ :=context.WithTimeout(context.Background(),30*time.Second)
 	server.Shutdown(tc)
 	//http.ListenAndServe(":9090", servemux)
 }
