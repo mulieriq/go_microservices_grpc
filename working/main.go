@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"time"
 	"working/working/handlers"
 )
@@ -29,7 +30,12 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
-
+      os.Signal()
+	singnalChanel :=make(chan  os.Signal)
+	signal.Notify(singnalChanel,os.Interrupt)
+	signal.Notify(singnalChanel,os.Kill)
+	sig <- singnalChanel
+	log.Printf("Received terminate ,graceful  shutdown",sig)
 	tc,_ :=context.WithTimeout(context.Background(),30*time.Second)
 	server.Shutdown(tc)
 	//http.ListenAndServe(":9090", servemux)
