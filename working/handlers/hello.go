@@ -16,7 +16,7 @@ func NewHello(l *log.Logger) *Hello {
 }
 func (h *Hello) ServeHTTP(writter http.ResponseWriter, request http.Request) {
 
-	log.Println("Goodbye")
+	h.l.Println("Goodbye") //logger
 	d, err := ioutil.ReadAll(request.Body)
 	if err != nil {
 		log.Fatal(err)
