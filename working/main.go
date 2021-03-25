@@ -18,6 +18,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+		log.Printf("Data %s",d)
 		writer.Write(d)
 
 	})
