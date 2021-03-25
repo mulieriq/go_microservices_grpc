@@ -30,10 +30,10 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
-	singnalChanel := make(chan os.Signal)
-	signal.Notify(singnalChanel, os.Interrupt)
-	signal.Notify(singnalChanel, os.Kill)
-	sig := <-singnalChanel
+	signalChannel := make(chan os.Signal)
+	signal.Notify(signalChannel, os.Interrupt)
+	signal.Notify(signalChannel, os.Kill)
+	sig := <-signalChannel
 	log.Printf("Received terminate ,graceful  shutdown %s", sig)
 	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	server.Shutdown(tc)
