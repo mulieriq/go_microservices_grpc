@@ -1,6 +1,9 @@
 package handlers
 
-import "log"
+import (
+	"log"
+	"net/http"
+)
 
 type Goodbye struct {
 	l *log.Logger
@@ -8,4 +11,8 @@ type Goodbye struct {
 
 func NewGoodbye(l*log.Logger) *Goodbye  {
 	return &Goodbye{l}
+}
+
+func (g*Goodbye) ServerHTTP(w http.ResponseWriter,r *http.Request) {
+
 }
