@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +23,14 @@ func main() {
 		ReadTimeout: 1*time.Second,
 		WriteTimeout: 1*time.Second,
 	}
-	server.ListenAndServe()
+	go func() {
+		err:=server.ListenAndServe()
+		if err!=nil{
+			log.Fatal(err)
+		}
+	}()
+
+	tc :=context.WithDeadline(context.Background(),30*time.Second)
+	server.Shutdown(tc)
 	//http.ListenAndServe(":9090", servemux)
 }
