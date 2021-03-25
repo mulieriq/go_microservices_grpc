@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 	"working/working/handlers"
 )
 
@@ -14,5 +15,13 @@ func main() {
 	servemux:=http.NewServeMux()
 	servemux.Handle("/",hh)
 	servemux.Handle("/goodbye",gh)
-	http.ListenAndServe(":9090", servemux)
+	server:=&http.Server{
+		Addr: ":9090",
+		Handler: servemux,
+		IdleTimeout: 120*time.Second,
+		ReadTimeout: 1*time.Second,
+		WriteTimeout: 1*time.Second,
+	}
+	server.ListenAndServe()
+	//http.ListenAndServe(":9090", servemux)
 }
