@@ -8,9 +8,13 @@ import (
 )
 
 type Hello struct {
+	l *log.Logger
 }
 
-func (h *Hello) ServeHTTp(writter http.ResponseWriter, request http.Request) {
+func NewHello(l *log.Logger) *Hello {
+	return &Hello{l}
+}
+func (h *Hello) ServeHTTP(writter http.ResponseWriter, request http.Request) {
 
 	log.Println("Goodbye")
 	d, err := ioutil.ReadAll(request.Body)
