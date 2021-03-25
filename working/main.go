@@ -1,20 +1,26 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 )
 
-func main()  {
-	http.HandleFunc("/",func(http.ResponseWriter , *http.Request){
+func main() {
+	http.HandleFunc("/", func(http.ResponseWriter, *http.Request) {
 		log.Println("Hello world")
 	})
-	
+
 	http.HandleFunc("/goodbye", func(writer http.ResponseWriter, request *http.Request) {
 		log.Println("Goodbye")
 		writer.Write([]byte("Hi"))
-		log.Println(request.Body)
+		d, err := ioutil.ReadAll(request.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		writer.Write(d)
+
 	})
 
-	http.ListenAndServe(":9090",nil)
+	http.ListenAndServe(":9090", nil)
 }
