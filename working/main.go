@@ -9,6 +9,8 @@ import (
 
 func main() {
 	log := log.New(os.Stdout,"product-api",log.LstdFlags)
-	helloHandlerLogger := handlers.NewHello(log)
-	http.ListenAndServe(":9090", nil)
+	hh := handlers.NewHello(log)
+	servemux:=http.NewServeMux()
+	servemux.Handle("/",hh)
+	http.ListenAndServe(":9090", servemux)
 }

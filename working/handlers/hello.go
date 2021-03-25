@@ -14,9 +14,9 @@ type Hello struct {
 func NewHello(l *log.Logger) *Hello {
 	return &Hello{l}
 }
-func (h *Hello) ServeHTTP(writter http.ResponseWriter, request http.Request) {
+func (h *Hello) ServeHTTP(writter http.ResponseWriter, request *http.Request) {
 
-	h.l.Println("Goodbye") //logger
+	h.l.Println("Root Route") //logger
 	d, err := ioutil.ReadAll(request.Body)
 	if err != nil {
 		log.Fatal(err)
