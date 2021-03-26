@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"working/working/handlers"
+	"working/product-api/handlers"
 )
 
 func main() {
