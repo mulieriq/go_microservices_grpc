@@ -1,5 +1,5 @@
 package handlers
 
-type Product struct {
+type Products struct {
 
 }
