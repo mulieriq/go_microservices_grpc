@@ -19,6 +19,8 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		p.getProducts(w, r)
 		return
 	}
+	//catch all
+	w.WriteHeader(http.StatusMethodNotAllowed)
 
 }
 func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
