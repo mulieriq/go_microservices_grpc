@@ -1,6 +1,8 @@
 package data
 
-import "time"
+import (
+	"time"
+)
 
 type Product struct {
 	ID          int
@@ -12,7 +14,7 @@ type Product struct {
 	UpdatedOn   string
 }
 
-var productList = []*Product{
+var productList = []Product{
 	{
 		ID:          1,
 		Name:        "Latte",
@@ -20,7 +22,7 @@ var productList = []*Product{
 		Price:       2.45,
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
-		},
+	},
 	{
 		ID:          2,
 		Name:        "Espresso",
@@ -28,5 +30,5 @@ var productList = []*Product{
 		Price:       1.99,
 		CreatedOn:   time.Now().UTC().String(),
 		UpdatedOn:   time.Now().UTC().String(),
-		},
+	},
 }
