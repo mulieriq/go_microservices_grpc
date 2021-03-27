@@ -1,6 +1,8 @@
 package data
 
 import (
+	"encoding/json"
+	"io"
 	"time"
 )
 
@@ -12,6 +14,12 @@ type Product struct {
 	SKU         string `json:"-"`
 	CreatedOn   string `json:"-"`
 	UpdatedOn   string `json:"-"`
+}
+type Products []*Product
+
+func (p*Products)ToJSON(w io.Writer) error {
+e:=json.NewEncoder(w)
+return e.Encode(p)
 }
 
 func GetProducts() []*Product {
