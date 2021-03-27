@@ -7,16 +7,18 @@ import (
 	"os"
 	"os/signal"
 	"time"
-	"working/product-api/handlers"
+	"product-api/product-api/handlers"
 )
 
 func main() {
 	log := log.New(os.Stdout, "product-api", log.LstdFlags)
 	hh := handlers.NewHello(log)
 	gh := handlers.NewGoodbye(log)
+	 pd:= handlers.NewProducts(log)
 	servemux := http.NewServeMux()
 	servemux.Handle("/", hh)
 	servemux.Handle("/goodbye", gh)
+	servemux.Handle("/products",pd)
 	server := &http.Server{
 		Addr:         ":9090",
 		Handler:      servemux,
