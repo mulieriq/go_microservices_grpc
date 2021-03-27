@@ -18,7 +18,7 @@ func main() {
 	serveMux := http.NewServeMux()
 	serveMux.Handle("/", hh) //testing api
 	serveMux.Handle("/goodbye", gh) //Testing api
-	serveMux.Handle("/products", pd)
+	serveMux.Handle("/products", pd)  ///Production code
 	server := &http.Server{
 		Addr:         ":9090",
 		Handler:      serveMux,
