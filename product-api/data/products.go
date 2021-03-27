@@ -14,7 +14,11 @@ type Product struct {
 	UpdatedOn   string
 }
 
-var productList = []Product{
+func GetProducts() []*Product {
+	return productList
+}
+
+var productList = []*Product{
 	{
 		ID:          1,
 		Name:        "Latte",
