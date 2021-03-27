@@ -22,7 +22,7 @@ e:=json.NewEncoder(w)
 return e.Encode(p)
 }
 
-func GetProducts() []*Product {
+func GetProducts() Products {
 	return productList
 }
 
