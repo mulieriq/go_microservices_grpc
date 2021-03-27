@@ -12,7 +12,7 @@ type Goodbye struct {
 }
 
 func (g *Goodbye) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	g.l.Println("Root Route") //logg
+	g.l.Println("Root Route") //log
 	d, _ := ioutil.ReadAll(request.Body)
 	fmt.Fprintf(writer, "Data %s", d)
 	writer.Write([]byte("Hello Goodbye"))
