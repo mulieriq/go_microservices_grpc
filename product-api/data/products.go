@@ -5,13 +5,13 @@ import (
 )
 
 type Product struct {
-	ID          int
-	Name        string
-	Description string
-	Price       float32
-	SKU         string
-	CreatedOn   string
-	UpdatedOn   string
+	ID          int `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       float32 `json:"price"`
+	SKU         string `json:"-"`
+	CreatedOn   string `json:"-"`
+	UpdatedOn   string `json:"-"`
 }
 
 func GetProducts() []*Product {
