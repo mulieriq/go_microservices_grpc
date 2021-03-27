@@ -1,3 +1,3 @@
-module working
+module product-api
 
 go 1.13
