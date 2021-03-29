@@ -11,10 +11,10 @@ import (
 )
 
 func main() {
-	customeLog := log.New(os.Stdout, "product-api", log.LstdFlags)
-	hh := handlers.NewHello(customeLog)
-	gh := handlers.NewGoodbye(customeLog)
-	pd := handlers.NewProducts(customeLog)
+	customLog := log.New(os.Stdout, "product-api", log.LstdFlags)
+	hh := handlers.NewHello(customLog)
+	gh := handlers.NewGoodbye(customLog)
+	pd := handlers.NewProducts(customLog)
 	serveMux := http.NewServeMux()
 	serveMux.Handle("/", hh) //testing api
 	serveMux.Handle("/goodbye", gh) //Testing api
@@ -29,14 +29,14 @@ func main() {
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil {
-			customeLog.Fatal(err)
+			customLog.Fatal(err)
 		}
 	}()
 	signalChannel := make(chan os.Signal)
 	signal.Notify(signalChannel, os.Interrupt)
 	signal.Notify(signalChannel, os.Kill)
 	sig := <-signalChannel
-	customeLog.Printf("Received terminate ,graceful  shutdown %s", sig)
+	customLog.Printf("Received terminate ,graceful  shutdown %s", sig)
 	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	server.Shutdown(tc)
 	//http.ListenAndServe(":9090", serveMux)
