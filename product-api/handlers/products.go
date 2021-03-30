@@ -53,19 +53,17 @@ func (p*Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) 
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
 	if err != nil {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
 		return
 	}
-	p.l.Println("product %#v",prod)
+	p.l.Println("product ",prod)
 	errorp := data.UpdateProduct(id, prod)
-	if errorp != data.ErrProductNotFound {
-		http.Error(w,"Erro",http.StatusBadRequest)
+	if errorp != nil {
+		p.l.Println("eroor data",errorp)
+		http.Error(w,"Erro",http.StatusMethodNotAllowed)
 		return
 	}
-	if errorp != nil{
-		http.Error(w,"Erro",http.StatusBadRequest)
-		return
-	}
+
 
 }
 func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
