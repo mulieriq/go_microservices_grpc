@@ -15,7 +15,7 @@ func main() {
 
 	pd := handlers.NewProducts(customLog)
 	serveMux := http.NewServeMux()
-	serveMux.Handle("/", pd) ///Production code
+	serveMux.Handle("/", pd)
 	server := &http.Server{
 		Addr:         ":9090",
 		Handler:      serveMux,
@@ -36,5 +36,5 @@ func main() {
 	customLog.Printf("Received terminate ,graceful  shutdown %s", sig)
 	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	server.Shutdown(tc)
-	//http.ListenAndServe(":9090", serveMux)
+
 }
