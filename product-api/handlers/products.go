@@ -29,7 +29,7 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 		regex := regexp.MustCompile(`/([0-9]+)`)
 		g := regex.FindAllStringSubmatch(r.URL.Path, -1)
-		p.l.Println("G", g)
+		p.l.Println("G", g, len(g), g[0][1])
 		if len(g) != 1 {
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 			return
@@ -39,12 +39,15 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		idString := g[0][1]
-		id,_ := strconv.Atoi(idString)
+		id, _ := strconv.Atoi(idString)
 		p.l.Println("GOt Id", id)
+		p.updateProduct(id,w http.ResponseWriter , r*http.Request)
 
 	}
-	//catch all
 	w.WriteHeader(http.StatusMethodNotAllowed)
+
+}
+func (p*Products)updateProduct(id int ,w http.ResponseWriter,r*http.Request)  {
 
 }
 func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
@@ -64,5 +67,4 @@ func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, "Unable to parse data", http.StatusInternalServerError)
 	}
-
 }
