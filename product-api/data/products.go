@@ -34,6 +34,11 @@ func AddProduct(p*Product)  {
 
 }
 
+func getNextId()int{
+	lp :=productList[len(productList)-1]
+	return lp.ID++
+}
+
 var productList = []*Product{
 	{
 		ID:          1,
