@@ -31,19 +31,18 @@ func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Handle POST")
 	prod := &data.Product{}
 	p.l.Printf("data %#v", prod)
-	err :=prod.FromJSON(r.Body)
+	err := prod.FromJSON(r.Body)
 	if err != nil {
-		http.Error(w,"Bad Request",http.StatusBadRequest)
+		http.Error(w, "Bad Request", http.StatusBadRequest)
 	}
-	p.l.Printf("Prod:  %#v",prod)
+	p.l.Printf("Prod:  %#v", prod)
 	data.AddProduct(prod)
 }
 func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
-	//data, err := json.Marshal(lp)
 	err := lp.ToJSON(w)
 	if err != nil {
 		http.Error(w, "Unable to parse data", http.StatusInternalServerError)
 	}
-	//w.Write(data)
+
 }
