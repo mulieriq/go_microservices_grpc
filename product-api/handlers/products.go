@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"product-api/product-api/data"
+	"regexp"
 )
 
 type Products struct {
@@ -24,8 +25,10 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if r.Method == http.MethodPut {
-	  path:=r.URL.Path
 
+		regex := regexp.MustCompile('/([0-9]+)')
+
+		path := r.URL.Path
 	}
 	//catch all
 	w.WriteHeader(http.StatusMethodNotAllowed)
