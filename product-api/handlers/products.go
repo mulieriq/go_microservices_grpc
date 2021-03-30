@@ -63,7 +63,10 @@ func (p*Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) 
 		http.Error(w,"Erro",http.StatusMethodNotAllowed)
 		return
 	}
-
+	if errorp == data.ErrProductNotFound{
+		http.Error(w,"Erro",http.StatusBadRequest)
+		return
+	}
 
 }
 func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
