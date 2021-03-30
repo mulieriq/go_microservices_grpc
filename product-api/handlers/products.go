@@ -23,6 +23,10 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		p.addProduct(w, r)
 		return
 	}
+	if r.Method == http.MethodPut {
+	  path:=r.URL.Path
+
+	}
 	//catch all
 	w.WriteHeader(http.StatusMethodNotAllowed)
 
