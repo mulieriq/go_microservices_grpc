@@ -36,6 +36,7 @@ func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w,"Bad Request",http.StatusBadRequest)
 	}
 	p.l.Printf("Prod:  %#v",prod)
+	data.AddProduct(prod)
 }
 func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
