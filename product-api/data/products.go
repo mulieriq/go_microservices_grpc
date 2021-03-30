@@ -36,7 +36,13 @@ func AddProduct(p *Product) {
 
 }
 func updateProduct(id int, p *Product) error {
-	fp :=
+    _,pos,err :=findProduct(id) ///searched product and position kwa list
+	if err !=nil{
+		return err
+
+	}
+	p.ID=id //re assing pid
+	productList[pos] = p //products postion replaced with updated product
 }
 
 var ErrProductNotFound = fmt.Errorf("Product Not Found")
