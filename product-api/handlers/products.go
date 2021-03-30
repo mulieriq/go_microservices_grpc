@@ -41,8 +41,7 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		idString := g[0][1]
 		id, _ := strconv.Atoi(idString)
 		p.l.Println("GOt Id", id)
-		p.updateProduct(id,w
-			http.ResponseWriter, r*http.Request)
+		p.updateProduct(id,w,r)
 		return
 
 	}
