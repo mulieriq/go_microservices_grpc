@@ -20,11 +20,12 @@ type Products []*Product
 func UpdateProduct(id int, p *Product) error {
 	_,pos,err :=findProduct(id) ///searched product and position kwa list
 	if err !=nil{
+		fmt.Println("error man")
 		return err
-
 	}
 	p.ID=id //re assing pid
 	productList[pos] = p //products postion replaced with updated product
+
 	return nil
 }
 func (p *Products) ToJSON(w io.Writer) error {
@@ -52,11 +53,12 @@ func findProduct(id int) (*Product, int, error) {
 	for i, p := range productList {
 
 		if p.ID == id {
+			fmt.Println("data",p)
 			return p, i, nil
 		}
 
 	}
-	return nil, 0, ErrProductNotFound
+	return nil, -1, ErrProductNotFound
 
 }
 

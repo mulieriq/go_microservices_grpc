@@ -49,13 +49,14 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 }
 func (p*Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle put")
+	p.l.Println("Handle put",id)
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
 	if err != nil {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
 		return
 	}
+	p.l.Println("product %#v",prod)
 	errorp := data.UpdateProduct(id, prod)
 	if errorp != data.ErrProductNotFound {
 		http.Error(w,"Erro",http.StatusBadRequest)
