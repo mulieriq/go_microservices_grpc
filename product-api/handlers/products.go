@@ -29,6 +29,13 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Handle POST")
+	prod := &data.Product{}
+	p.l.Printf("data %#v", prod)
+	err :=prod.FromJSON(r.Body)
+	if err != nil {
+		http.Error(w,"Bad Request",http.StatusBadRequest)
+	}
+	p.l.Printf("Prod:  %#v",prod)
 }
 func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
