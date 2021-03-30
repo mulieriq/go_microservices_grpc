@@ -29,6 +29,10 @@ func (p*Product)FromJSON(at io.Reader) error {
 func GetProducts() Products {
 	return productList
 }
+func AddProduct(p*Product)  {
+
+
+}
 
 var productList = []*Product{
 	{
