@@ -41,13 +41,31 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		idString := g[0][1]
 		id, _ := strconv.Atoi(idString)
 		p.l.Println("GOt Id", id)
-		p.updateProduct(id,w http.ResponseWriter , r*http.Request)
+		p.updateProduct(id,w
+			http.ResponseWriter, r*http.Request)
+		return
 
 	}
 	w.WriteHeader(http.StatusMethodNotAllowed)
 
 }
-func (p*Products)updateProduct(id int ,w http.ResponseWriter,r*http.Request)  {
+func (p*Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
+	p.l.Println("Handle put")
+	prod := &data.Product{}
+	err := prod.FromJSON(r.Body)
+	if err != nil {
+		http.Error(w, "Bad Request", http.StatusBadRequest)
+		return
+	}
+	errorp := data.UpdateProduct(id, prod)
+	if errorp != data.ErrProductNotFound {
+		http.Error(w,"Erro",http.StatusBadRequest)
+		return
+	}
+	if errorp != nil{
+		http.Error(w,"Erro",http.StatusBadRequest)
+		return
+	}
 
 }
 func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {

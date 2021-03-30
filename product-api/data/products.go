@@ -17,7 +17,16 @@ type Product struct {
 	UpdatedOn   string  `json:"-"`
 }
 type Products []*Product
+func UpdateProduct(id int, p *Product) error {
+	_,pos,err :=findProduct(id) ///searched product and position kwa list
+	if err !=nil{
+		return err
 
+	}
+	p.ID=id //re assing pid
+	productList[pos] = p //products postion replaced with updated product
+	return nil
+}
 func (p *Products) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(p)
@@ -35,15 +44,7 @@ func AddProduct(p *Product) {
 	productList = append(productList, p)
 
 }
-func updateProduct(id int, p *Product) error {
-    _,pos,err :=findProduct(id) ///searched product and position kwa list
-	if err !=nil{
-		return err
 
-	}
-	p.ID=id //re assing pid
-	productList[pos] = p //products postion replaced with updated product
-}
 
 var ErrProductNotFound = fmt.Errorf("Product Not Found")
 
