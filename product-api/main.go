@@ -8,13 +8,14 @@ import (
 	"os/signal"
 	"product-api/product-api/handlers"
 	"time"
+	"github.com/gorilla/mux"
 )
 
 func main() {
 	customLog := log.New(os.Stdout, "product-api", log.LstdFlags)
 
 	pd := handlers.NewProducts(customLog)
-	serveMux := http.NewServeMux()
+	serveMux := mux.NewRouter()
 	serveMux.Handle("/", pd)
 	server := &http.Server{
 		Addr:         ":9090",
