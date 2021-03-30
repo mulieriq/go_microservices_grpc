@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"product-api/product-api/data"
 	"regexp"
+	"strconv"
 )
 
 type Products struct {
@@ -26,9 +27,21 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if r.Method == http.MethodPut {
 
-		regex := regexp.MustCompile('/([0-9]+)')
+		regex := regexp.MustCompile(`/([0-9]+)`)
+		g := regex.FindAllStringSubmatch(r.URL.Path, -1)
+		p.l.Println("G", g)
+		if len(g) != 1 {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
+		if len(g[0]) != 2 {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
+		idString := g[0][1]
+		id,_ := strconv.Atoi(idString)
+		p.l.Println("GOt Id", id)
 
-		path := r.URL.Path
 	}
 	//catch all
 	w.WriteHeader(http.StatusMethodNotAllowed)
