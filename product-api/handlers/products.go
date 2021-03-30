@@ -41,30 +41,30 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		idString := g[0][1]
 		id, _ := strconv.Atoi(idString)
 		p.l.Println("GOt Id", id)
-		p.updateProduct(id,w,r)
+		p.updateProduct(id, w, r)
 		return
 
 	}
 	w.WriteHeader(http.StatusMethodNotAllowed)
 
 }
-func (p*Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle put",id)
+func (p *Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
+	p.l.Println("Handle put", id)
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
 	if err != nil {
 		http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
 		return
 	}
-	p.l.Println("product ",prod)
+	p.l.Println("product ", prod)
 	errorp := data.UpdateProduct(id, prod)
 	if errorp != nil {
-		p.l.Println("eroor data",errorp)
-		http.Error(w,"Erro",http.StatusMethodNotAllowed)
+		p.l.Println("eroor data", errorp)
+		http.Error(w, "Erro", http.StatusMethodNotAllowed)
 		return
 	}
-	if errorp == data.ErrProductNotFound{
-		http.Error(w,"Erro",http.StatusBadRequest)
+	if errorp == data.ErrProductNotFound {
+		http.Error(w, "Erro", http.StatusBadRequest)
 		return
 	}
 
