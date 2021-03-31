@@ -1,10 +1,10 @@
 package handlers
 
 import (
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"product-api/product-api/data"
-	"regexp"
 	"strconv"
 )
 
@@ -16,39 +16,9 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
-func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodGet {
-		p.getProducts(w, r)
-		return
-	}
-	if r.Method == http.MethodPost {
-		p.addProduct(w, r)
-		return
-	}
-	if r.Method == http.MethodPut {
-
-		regex := regexp.MustCompile(`/([0-9]+)`)
-		g := regex.FindAllStringSubmatch(r.URL.Path, -1)
-		p.l.Println("G", g, len(g), g[0][1])
-		if len(g) != 1 {
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
-		}
-		if len(g[0]) != 2 {
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
-		}
-		idString := g[0][1]
-		id, _ := strconv.Atoi(idString)
-		p.l.Println("GOt Id", id)
-		p.updateProduct(id, w, r)
-		return
-
-	}
-	w.WriteHeader(http.StatusMethodNotAllowed)
-
-}
-func (p *Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
+func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r) //extracting id from mux
+	id, _ := strconv.Atoi(vars["id"])
 	p.l.Println("Handle put", id)
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
@@ -69,7 +39,7 @@ func (p *Products) updateProduct(id int, w http.ResponseWriter, r *http.Request)
 	}
 
 }
-func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
+func (p *Products) AddProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Handle POST")
 	prod := &data.Product{}
 	p.l.Printf("data %#v", prod)
@@ -80,7 +50,7 @@ func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Prod:  %#v", prod)
 	data.AddProduct(prod)
 }
-func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
+func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
 	err := lp.ToJSON(w)
 	if err != nil {
