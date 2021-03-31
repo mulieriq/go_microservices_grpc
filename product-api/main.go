@@ -9,6 +9,7 @@ import (
 	"product-api/product-api/handlers"
 	"time"
 	"github.com/gorilla/mux"
+
 )
 
 func main() {
@@ -16,7 +17,7 @@ func main() {
 
 	pd := handlers.NewProducts(customLog)
 	serveMux := mux.NewRouter()
-	serveMux.Handle("/", pd)
+	serveMux.Handle("/products", pd).Methods("GET")
 	server := &http.Server{
 		Addr:         ":9090",
 		Handler:      serveMux,
