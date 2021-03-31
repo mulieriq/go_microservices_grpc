@@ -17,7 +17,8 @@ func main() {
 	pd := handlers.NewProducts(customLog)
 	serveMux := mux.NewRouter()
 
-	getRouter := serveMux.Methods("GET").Subrouter()
+	getRouter := serveMux.Methods(http.MethodGet).Subrouter()
+	putRouter := serveMux.Methods(http.MethodPut).Subrouter()
 	getRouter.HandleFunc("/", pd.GetProducts)
 	//serveMux.Handle("/products", pd)
 	server := &http.Server{
