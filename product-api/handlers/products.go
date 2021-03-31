@@ -17,7 +17,7 @@ func NewProducts(l *log.Logger) *Products {
 }
 
 func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
+	vars := mux.Vars(r) //extracting id from mux
 	id, _ := strconv.Atoi(vars["id"])
 	p.l.Println("Handle put", id)
 	prod := &data.Product{}
