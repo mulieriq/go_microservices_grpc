@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"product-api/product-api/data"
+	"strconv"
 )
 
 type Products struct {
@@ -14,7 +16,9 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
-func (p *Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
+func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
 	p.l.Println("Handle put", id)
 	prod := &data.Product{}
 	err := prod.FromJSON(r.Body)
