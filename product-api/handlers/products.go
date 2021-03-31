@@ -47,7 +47,7 @@ func (p *Products) addProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Prod:  %#v", prod)
 	data.AddProduct(prod)
 }
-func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
+func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
 	err := lp.ToJSON(w)
 	if err != nil {

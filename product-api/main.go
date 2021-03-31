@@ -18,7 +18,7 @@ func main() {
 	serveMux := mux.NewRouter()
 
 	getRouter := serveMux.Methods("GET").Subrouter()
-	getRouter.Handle("/", pd)
+	getRouter.HandleFunc("/", pd.GetProducts)
 	//serveMux.Handle("/products", pd)
 	server := &http.Server{
 		Addr:         ":9090",
