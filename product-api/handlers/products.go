@@ -14,7 +14,6 @@ func NewProducts(l *log.Logger) *Products {
 	return &Products{l}
 }
 
-
 func (p *Products) updateProduct(id int, w http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle put", id)
 	prod := &data.Product{}
