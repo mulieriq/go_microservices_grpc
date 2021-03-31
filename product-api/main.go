@@ -2,14 +2,13 @@ package main
 
 import (
 	"context"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"product-api/product-api/handlers"
 	"time"
-	"github.com/gorilla/mux"
-
 )
 
 func main() {
@@ -17,7 +16,10 @@ func main() {
 
 	pd := handlers.NewProducts(customLog)
 	serveMux := mux.NewRouter()
-	serveMux.Handle("/products", pd).Methods("GET")
+
+	getRouter := serveMux.Methods("GET").Subrouter()
+
+	serveMux.Handle("/products", pd)
 	server := &http.Server{
 		Addr:         ":9090",
 		Handler:      serveMux,
