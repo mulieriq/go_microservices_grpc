@@ -18,14 +18,20 @@ func main() {
 	serveMux := mux.NewRouter()
 
 	getRouter := serveMux.Methods(http.MethodGet).Subrouter()
-	putRouter := serveMux.Methods(http.MethodPut).Subrouter()
-	putRouter.Use(pd.MiddleWareProductsValidation)
-	postRouter := serveMux.Methods(http.MethodPost).Subrouter()
-	postRouter.Use(pd.MiddleWareProductsValidation)
 	getRouter.HandleFunc("/", pd.GetProducts)
-	putRouter.HandleFunc("/{id:[0-9]+}", pd.UpdateProduct)
 
+
+
+
+	putRouter := serveMux.Methods(http.MethodPut).Subrouter()
+	putRouter.HandleFunc("/{id:[0-9]+}", pd.UpdateProduct)
+	putRouter.Use(pd.MiddleWareProductsValidation)
+
+	postRouter := serveMux.Methods(http.MethodPost).Subrouter()
 	postRouter.HandleFunc("/", pd.AddProduct)
+	postRouter.Use(pd.MiddleWareProductsValidation)
+
+
 	//serveMux.Handle("/products", pd)
 	server := &http.Server{
 		Addr:         ":9090",
