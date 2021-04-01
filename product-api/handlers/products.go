@@ -21,9 +21,9 @@ func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r) //extracting id from mux
 	id, _ := strconv.Atoi(vars["id"])
 	p.l.Println("Handle put", id)
-
+	prod := r.Context().Value(KeyProduct{}).(data.Product)
 	p.l.Println("product ", prod)
-	errorp := data.UpdateProduct(id, prod)
+	errorp := data.UpdateProduct(id, &prod)
 	if errorp != nil {
 		p.l.Println("eroor data", errorp)
 		http.Error(w, "Erro", http.StatusMethodNotAllowed)
@@ -37,14 +37,8 @@ func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 func (p *Products) AddProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Printf("Handle POST")
-	prod := &data.Product{}
-	p.l.Printf("data %#v", prod)
-	err := prod.FromJSON(r.Body)
-	if err != nil {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-	}
-	p.l.Printf("Prod:  %#v", prod)
-	data.AddProduct(prod)
+	prod := r.Context().Value(KeyProduct{}).(data.Product)
+	data.AddProduct(&prod)
 }
 func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 	lp := data.GetProducts()
@@ -58,7 +52,6 @@ type KeyProduct struct{}
 
 func (p *Products) MiddleWareProductsValidation(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
 		prod := &data.Product{}
 		err := prod.FromJSON(r.Body)
 		if err != nil {
