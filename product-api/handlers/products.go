@@ -55,7 +55,7 @@ func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 
 type KeyProduct struct
 
-	func(p *Products) MiddleWareProductsValidation(w http.ResponseWriter, r *http.Request) http.Handler {
+	func(p *Products) MiddleWareProductsValidation(next http.Handler ) http.Handler {
 	return http.HandlerFunc(w
 	http.ResponseWriter, r * http.Request){
 
