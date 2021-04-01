@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -53,9 +54,9 @@ func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//type KeyProduct struct
+type KeyProduct struct{}
 
-	func ( p *Products) MiddleWareProductsValidation(next http.Handler ) http.Handler {
+func (p *Products) MiddleWareProductsValidation(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		prod := &data.Product{}
@@ -64,8 +65,8 @@ func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
 			return
 		}
-		ctx := r.Context().Value(KeyProduct{}, prop)
+		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
 		req := r.WithContext(ctx)
 		next.ServeHTTP(w, r)
 	})
-	}
+}
