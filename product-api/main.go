@@ -21,8 +21,6 @@ func main() {
 	getRouter.HandleFunc("/", pd.GetProducts)
 
 
-
-
 	putRouter := serveMux.Methods(http.MethodPut).Subrouter()
 	putRouter.HandleFunc("/{id:[0-9]+}", pd.UpdateProduct)
 	putRouter.Use(pd.MiddleWareProductsValidation)
