@@ -51,13 +51,13 @@ func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 
 type KeyProduct struct{}
 
-func (p Products) MiddleWareProductsValidation(next http.Handler) http.Handler {
+func (p *Products) MiddleWareProductsValidation(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		prod := data.Product{}
-		fmt.Println("data",r.Body)
+		fmt.Println("data", r.Body)
 		err := prod.FromJSON(r.Body)
 		if err != nil {
-			fmt.Println("Errro is",err)
+			fmt.Println("Error is", err)
 			http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
 			return
 		}
