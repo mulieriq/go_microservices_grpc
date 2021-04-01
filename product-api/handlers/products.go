@@ -20,12 +20,7 @@ func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r) //extracting id from mux
 	id, _ := strconv.Atoi(vars["id"])
 	p.l.Println("Handle put", id)
-	prod := &data.Product{}
-	err := prod.FromJSON(r.Body)
-	if err != nil {
-		http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
-		return
-	}
+
 	p.l.Println("product ", prod)
 	errorp := data.UpdateProduct(id, prod)
 	if errorp != nil {
@@ -57,3 +52,22 @@ func (p *Products) GetProducts(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unable to parse data", http.StatusInternalServerError)
 	}
 }
+
+type KeyProduct struct
+
+	func(p *Products) MiddleWareProductsValidation(w http.ResponseWriter, r *http.Request) http.Handler {
+	return http.HandlerFunc(w
+	http.ResponseWriter, r * http.Request){
+
+	prod := &data.Product{}
+	err := prod.FromJSON(r.Body)
+	if err != nil {
+	http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
+	return
+	}
+	ctx := r.Context().Value(KeyProduct{}, prop)
+	req := r.WithContext(ctx)
+	next.ServeHTTP(w, r)
+
+	}
+	}
