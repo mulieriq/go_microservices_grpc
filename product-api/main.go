@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -18,6 +19,7 @@ func main() {
 	pd := handlers.NewProducts(customLog)
 	serveMux := mux.NewRouter()
 
+
 	getRouter := serveMux.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", pd.GetProducts)
 
@@ -29,6 +31,7 @@ func main() {
 	postRouter.HandleFunc("/", pd.AddProduct)
 	postRouter.Use(pd.MiddleWareProductsValidation)
 
+	 ch := gohandlers.CORS()
 	//serveMux.Handle("/products", pd)
 	server := &http.Server{
 		Addr:         ":9090",
