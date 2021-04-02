@@ -26,12 +26,12 @@ func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Println("product ", prod)
 	errorp := data.UpdateProduct(id, &prod)
 	if errorp != nil {
-		p.l.Println("eroor data", errorp)
-		http.Error(w, "Erro", http.StatusMethodNotAllowed)
+		p.l.Println("Error data", errorp)
+		http.Error(w, "Error", http.StatusMethodNotAllowed)
 		return
 	}
 	if errorp == data.ErrProductNotFound {
-		http.Error(w, "Erro", http.StatusBadRequest)
+		http.Error(w, "Error", http.StatusBadRequest)
 		return
 	}
 
@@ -59,6 +59,13 @@ func (p *Products) MiddleWareProductsValidation(next http.Handler) http.Handler 
 		if err != nil {
 			fmt.Println("Error is", err)
 			http.Error(w, "Bad Request in parsing", http.StatusBadRequest)
+			return
+		}
+		///Product validation
+		err = prod.Validate()
+		if err != nil {
+			fmt.Println("Error is", err)
+			http.Error(w, "Error validating", http.StatusBadRequest)
 			return
 		}
 		ctx := context.WithValue(r.Context(), KeyProduct{}, prod)
