@@ -4,7 +4,7 @@ import (
 	"product-api/product-api/data"
 	"testing"
 )
-
+//Test
 func TestChecksValidation(t *testing.T) {
 	pd := &data.Product{
 		Name: "Eric",
