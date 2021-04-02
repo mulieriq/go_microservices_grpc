@@ -31,11 +31,11 @@ func main() {
 	postRouter.HandleFunc("/", pd.AddProduct)
 	postRouter.Use(pd.MiddleWareProductsValidation)
 
-	 ch := gohandlers.CORS()
+	 ch := gohandlers.CORS(gohandlers.AllowedOrigins([]string{"*"})) //allows all origins
 	//serveMux.Handle("/products", pd)
 	server := &http.Server{
 		Addr:         ":9090",
-		Handler:      serveMux,
+		Handler:      ch(serveMux),
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
