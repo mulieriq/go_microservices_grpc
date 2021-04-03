@@ -1,7 +1,7 @@
 package test
 
 import (
-	"product-api/product-api/data"
+	"product-api-service/data"
 	"testing"
 )
 //Test

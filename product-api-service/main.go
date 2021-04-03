@@ -8,13 +8,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"product-api/product-api/handlers"
-
+	"product-api-service/handlers"
 	"time"
 )
 
 func main() {
-	customLog := log.New(os.Stdout, "product-api", log.LstdFlags)
+	customLog := log.New(os.Stdout, "product-api-service", log.LstdFlags)
 
 	pd := handlers.NewProducts(customLog)
 	serveMux := mux.NewRouter()

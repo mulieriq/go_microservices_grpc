@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"product-api/product-api/data"
+	"product-api-service/data"
 	"strconv"
 )
 
