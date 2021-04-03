@@ -8,8 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"product-api-service/product-api-service/handlers"
-
+	"product-api-service/handlers"
 	"time"
 )
 
