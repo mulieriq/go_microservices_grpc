@@ -1,0 +1,3 @@
+.PHONY: protos
+protos:
+	protoc -I protoc/ protos/currency.proto --go_out=plugins=grpc:protos/currency/generated
