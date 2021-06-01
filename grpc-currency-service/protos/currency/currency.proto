@@ -1,5 +1,6 @@
-syntax = "proto3";
 
+syntax = "proto3";
+package main;
 service Currency{
   rpc GetRate(RateRequest) returns (RateResponse);
 }
