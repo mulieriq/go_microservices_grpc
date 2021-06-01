@@ -1,1 +1,5 @@
-package rabbitMQ_message_dispatcher
+package main
+
+func Dispatch()  {
+	
+}

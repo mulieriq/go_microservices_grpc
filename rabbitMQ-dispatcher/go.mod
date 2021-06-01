@@ -1,3 +1,3 @@
-module rabbitMQ-message-dispatcher
+module rabbitMQ-dispatcher
 
 go 1.13
