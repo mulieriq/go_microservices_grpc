@@ -1,1 +1,0 @@
-package rabbitMQ_message_dispatcher

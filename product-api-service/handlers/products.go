@@ -24,13 +24,13 @@ func (p *Products) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle put", id)
 	prod := r.Context().Value(KeyProduct{}).(data.Product)
 	p.l.Println("product ", prod)
-	errorp := data.UpdateProduct(id, &prod)
-	if errorp != nil {
-		p.l.Println("Error data", errorp)
+	err := data.UpdateProduct(id, &prod)
+	if err!= nil {
+		p.l.Println("Error data", err)
 		http.Error(w, "Error", http.StatusMethodNotAllowed)
 		return
 	}
-	if errorp == data.ErrProductNotFound {
+	if err == data.ErrProductNotFound {
 		http.Error(w, "Error", http.StatusBadRequest)
 		return
 	}
