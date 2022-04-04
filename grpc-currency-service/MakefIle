@@ -1,4 +1,0 @@
-.PHONY: proton
-
-proton:
-	protoc --go-grpc_out=protos/generated -Iprotos protos/currency/currency.proto
