@@ -3,6 +3,7 @@ package data
 import (
 	"encoding/json"
 	"io"
+	"log"
 	"time"
 )
 
@@ -21,6 +22,7 @@ type Products []*Product
 
 func (p *Products) ToJSON(writer io.Writer) error {
 	encoder := json.NewEncoder(writer)
+	log.Println("here the data is ready .....")
 	return encoder.Encode(p)
 }
 

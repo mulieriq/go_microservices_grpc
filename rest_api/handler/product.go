@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"rest_api/data"
+	"time"
 )
 
 type Products struct {
@@ -26,6 +27,7 @@ func (p *Products) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func (p *Products) getProducts(w http.ResponseWriter, r *http.Request) {
 
+	time.Sleep(10 * time.Second)
 	listOfProducts := data.GetProducts()
 	err := listOfProducts.ToJSON(w)
 	if err != nil {
